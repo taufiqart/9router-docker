@@ -1,0 +1,23 @@
+services:
+  9router:
+    build:
+      context: .
+    container_name: 9router
+
+    ports:
+      - "20128:20128"
+      # - "443:443" # Enable when use MITM
+      # - "80:80" # Enable when use MITM
+
+    environment:
+      - PORT=20128
+      - HOSTNAME=0.0.0.0
+      - DATA_DIR=/app/data
+      - ENABLE_MITM=true
+      - MITM_AUTO_START=true
+      - ENABLE_ANTIGRAVITY_MITM=true
+
+    volumes:
+      - ./9router-data:/app/data
+
+    restart: unless-stopped
